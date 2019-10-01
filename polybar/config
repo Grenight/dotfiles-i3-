@@ -1,0 +1,149 @@
+[colors]
+background = #55000000
+foreground = ${xrdb:color7}
+foreground-alt = ${xrdb:color7}
+primary = ${xrdb:color1}
+secondary = ${xrdb:color2}
+alert = ${xrdb:color3}
+
+[bar/mybar]
+monirot = ${env:MONIROT:eDP1}
+width = 100%
+height = 20
+offset-x = 0%
+offset-y = 0%
+radius = 0
+fixed-center = true
+
+
+modules-left = i3
+modules-center = 
+modules-right = filesystem pulseaudio xkeyboard memory date
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0  
+padding-right = 0 
+
+module-margin-left = 1 
+module-margin-right = 1 
+
+font-0 = "Noto Sans:pixelsize=10;antialias=true;1"
+
+tray-position = right
+tray-detached = false
+tray-maxsize = 20
+tray-padding = 1 
+tray-background = ${root.background}
+wm-restack = i3
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/filesystem]
+type = internal/fs
+interval = 1
+mount-0 = /
+label-mounted = %mountpoint% : %percentage_used%% 
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+label-indicator-padding = 1 
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+label-unfocused = %index%
+label-unfocused-padding = ${module/i3.label-mode-padding}
+label-unfocused-foreground = #ffffff
+
+label-focused = %index%
+label-focused-foreground = #ffffff
+label-focused-background = #65737E
+label-focused-padding = ${module/i3.label-mode-padding} 
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = ${module/i3.label-mode-padding} 
+
+[module/memory]
+type = internal/memory
+interval = 0.5
+label = %percentage_used%% RAM
+
+[module/wlan]
+type = internal/network
+interface = net1
+interval = 1.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = #9f78e1
+label-connected = %essid%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 1
+
+date =
+date-alt = " %d-%m-%Y"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #ffffff
+label = %time% %date%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume>
+label-volume = VOL %percentage%%
+label-volume-foreground = ${root.foreground}
+label-muted = MUTED
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
